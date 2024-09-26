@@ -8,13 +8,17 @@ import { AppComponent } from './app.component';
 import { AddTutorialComponent } from './components/add-tutorial/add-tutorial.component';
 import { TutorialDetailsComponent } from './components/tutorial-details/tutorial-details.component';
 import { TutorialsListComponent } from './components/tutorials-list/tutorials-list.component';
+import { TreasureTroveComponent } from './components/treasure-trove/treasure-trove.component';
+import { RandomWeatherComponent } from './components/random-weather/random-weather.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddTutorialComponent,
     TutorialDetailsComponent,
-    TutorialsListComponent
+    TutorialsListComponent,
+    TreasureTroveComponent,
+    RandomWeatherComponent
   ],
   imports: [
     BrowserModule,
