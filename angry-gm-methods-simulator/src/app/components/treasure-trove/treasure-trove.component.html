@@ -1,13 +1,27 @@
-<div class="list row">
-    <div class="col-md-8">
-     
-    </div>
-    <div class="col-md-6">
-      <h4>Treasure Trove Simulator</h4>
-  
-    </div>
-    <div class="col-md-6">
-ssss
-    </div>
+
+
+<div class="row-section">
+
+  <div class="col-section">
+    <label>Choose your Adventure Tier</label>
+    <mat-radio-group class="radio-group"
+      [(ngModel)]="adventureTireSelected">
+      @for (tier of adventureTiers; track tier) {
+        <mat-radio-button class="radio-button" [value]="tier">{{tier.text}}</mat-radio-button>
+      }
+    </mat-radio-group>
+    
+  </div>
+
+  <div class="col-section">
+    <label>Choose your Trove profile</label>
+    <mat-radio-group class="radio-group"
+      [(ngModel)]="troveProfileSelected">
+      @for (profile of troveProfiles; track profile) {
+        <mat-radio-button class="radio-button" [value]="profile">{{profile.text}}</mat-radio-button>
+      }
+    </mat-radio-group>
   </div>
   
+</div>
+

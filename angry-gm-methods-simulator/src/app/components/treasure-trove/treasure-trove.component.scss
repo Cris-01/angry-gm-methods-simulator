@@ -1,0 +1,27 @@
+h4 {
+  margin: 1em;
+}
+
+.row-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    .col-section {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      margin-right: 1em;
+      margin-left: 1em;
+    }
+
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      margin: 15px 0;
+      align-items: flex-start;
+      .radio-button {
+        margin: 1px;
+      }
+    }
+  }
