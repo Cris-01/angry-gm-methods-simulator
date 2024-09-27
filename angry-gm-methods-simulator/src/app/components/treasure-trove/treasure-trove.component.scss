@@ -6,6 +6,11 @@ h4 {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    margin-top: 1em;
+
+    .label{
+      min-width: 17em;
+    }
 
     .col-section {
       display: flex;
@@ -24,4 +29,18 @@ h4 {
         margin: 1px;
       }
     }
+
+    .form-field {
+      margin-left: 1em;
+    }
+
+
+  }
+
+  .btn {
+    margin-left: 1em;
+  }
+
+  .card {
+    margin-bottom: 2em;
   }

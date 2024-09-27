@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { TreasureTroveComponent } from './components/treasure-trove/treasure-trove.component';
 import { RandomWeatherComponent } from './components/random-weather/random-weather.component';
 import { AppMaterialModule } from './material.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import { AppMaterialModule } from './material.module';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    AppMaterialModule
+    AppMaterialModule,
+    BrowserModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

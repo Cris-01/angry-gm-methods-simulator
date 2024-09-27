@@ -1,10 +1,10 @@
 
+<h4>Treasure Trove Simulator</h4>
 
 <div class="row-section">
-
   <div class="col-section">
     <label>Choose your Adventure Tier</label>
-    <mat-radio-group class="radio-group"
+    <mat-radio-group class="radio-group" (ngModelChange)="updateDices()"
       [(ngModel)]="adventureTireSelected">
       @for (tier of adventureTiers; track tier) {
         <mat-radio-button class="radio-button" [value]="tier">{{tier.text}}</mat-radio-button>
@@ -12,16 +12,94 @@
     </mat-radio-group>
     
   </div>
+</div>
 
+
+<div class="row-section">
   <div class="col-section">
     <label>Choose your Trove profile</label>
     <mat-radio-group class="radio-group"
       [(ngModel)]="troveProfileSelected">
       @for (profile of troveProfiles; track profile) {
-        <mat-radio-button class="radio-button" [value]="profile">{{profile.text}}</mat-radio-button>
+        <mat-radio-button class="radio-button" [value]="profile">{{profile.text}} - {{profile.array | json}}</mat-radio-button>
       }
     </mat-radio-group>
   </div>
   
+</div>
+
+
+<div class="col-section">
+
+  <div class="row-section">
+    <label class="label">Number of Dices for Items (Max: {{adventureTireSelected.numberOfDiceTrove}})</label>
+    <mat-form-field class="form-field">
+      <input matInput type="number" [(ngModel)]="dicesForItems" 
+      (ngModelChange)="updateDices()"
+      max={{adventureTireSelected.numberOfDiceTrove}} min=0>
+    </mat-form-field>
+  </div>
+
+  <div class="row-section">
+    <label class="label">Number of Dices to Coins</label>
+    <mat-form-field class="form-field">
+      <input matInput type="number" [(ngModel)]="dicesForCoin" disabled>
+    </mat-form-field>
+  </div>
+
+</div>
+
+
+<div class="row-section">
+  <label class="label">Generate Treasure Trove</label>
+  <button mat-fab color="primary" class="btn" (click)="startSimulation()">
+    <mat-icon>check</mat-icon>
+  </button>
+</div>
+
+
+<div class="col-section">
+
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title>Result</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <div>
+        <div>Coin Value: <b> {{coinValue}} GP </b> 
+          <span *ngIf="diceForCoinArray.length">dices rolled {{diceForCoinArray | json}} (multiplier {{adventureTireSelected.multiplier}}) </span>
+        </div>
+      </div>
+    
+      <div>
+        <div>Number of Items: <b>{{items.length}} </b> 
+          <span *ngIf="dicesResultForNumberOfItems.length">dices rolled {{dicesResultForNumberOfItems | json}} </span>
+       </div>
+      </div>
+
+      <mat-list role="list">
+        @for (item of items; track item) {
+          <mat-list-item>
+            <b>{{item.objClass}}</b> <span *ngIf="item.objClassDice"> (dice rolled: [{{item.objClassDice}}])</span>,
+            <b>{{item.rarity}} </b> <span *ngIf="item.rarityDice"> (dice rolled: [{{item.rarityDice}}])</span>,
+            <b>{{item.quality}} quality</b> 
+            <span> 
+              (dice rolled: [{{item.qualityDice}}] 
+              <span *ngIf="item.qualityDice2"> 
+                -> [{{item.qualityDice2}}]
+              </span>
+              )
+            </span>
+            
+          </mat-list-item>
+        }
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+
+
+
 </div>
 
