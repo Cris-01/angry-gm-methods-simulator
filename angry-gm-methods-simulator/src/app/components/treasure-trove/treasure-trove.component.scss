@@ -1,5 +1,15 @@
-h4 {
-  margin: 1em;
+.header {
+  margin-bottom: 1em;
+  font-size: larger;
+  font-weight: bolder;
+}
+
+.result {
+  margin-top: 1em;
+}
+
+mat-card-header {
+  margin-bottom: 2em;
 }
 
 .row-section {
@@ -35,21 +45,22 @@ h4 {
     }
 
 
-  }
+}
 
-  .btn {
+.btn {
     margin-left: 1em;
-  }
+}
 
-  .card {
+.card {
     margin-bottom: 2em;
-  }
+}
 
-  .list-container {
+.list-container {
     margin-top: 1em;
     .list-row {
       padding-left: 10px;
       padding-right: 10px;
+      margin-bottom: 1em;
       
       .subtext {
         margin-left: 1em;
@@ -57,5 +68,12 @@ h4 {
         font-weight: lighter;
       }
     }
+}
+
+.margin-top {
+    margin-top: 1em;
   }
 
+.margin-bottom {
+    margin-bottom: 1em;
+  }

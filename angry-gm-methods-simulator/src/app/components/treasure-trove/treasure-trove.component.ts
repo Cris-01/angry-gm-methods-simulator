@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, viewChild } from '@angular/core';
 import { from, map, Observable, of, reduce } from 'rxjs';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
   selector: 'app-treasure-trove',
@@ -185,14 +186,12 @@ export class TreasureTroveComponent implements OnInit {
     },
   ]
 
-  diceLog = true;
+  diceLog = false;
 
-  constructor() {
-
-  }
+  constructor(private localStorageService: LocalStorageService) {}
 
   ngOnInit(): void {
-    
+    this.initSettings();
   }
 
   updateDices() {
@@ -201,6 +200,7 @@ export class TreasureTroveComponent implements OnInit {
         this.dicesForItems = 0
       } 
       this.dicesForCoin = this.adventureTireSelected.numberOfDiceTrove - this.dicesForItems
+      this.saveSettings();
     }, 100);
   }
 
@@ -227,11 +227,37 @@ export class TreasureTroveComponent implements OnInit {
   }
 
   startSimulation() {
+
     this.diceForCoinArray = this.getResultOfNumberOfDices(this.dicesForCoin, 6);
     this.coinValue = this.getTotalFromArrayOfDices(this.diceForCoinArray) * this.adventureTireSelected.multiplier;
     this.dicesResultForNumberOfItems = this.getResultOfNumberOfDices(this.dicesForItems, 6);
     this.numberOfItems = this.getTotalFromArrayOfDices(this.dicesResultForNumberOfItems)
     this.items = this.calculateItems(this.numberOfItems);
+    this.saveSettings();
+  }
+
+  saveSettings() {
+    const settings = {
+      diceLog: this.diceLog,
+      adventureTireSelected: this.adventureTireSelected,
+      troveProfileSelected: this.troveProfileSelected,
+      dicesForCoin: this.dicesForCoin,
+      dicesForItems: this.dicesForItems
+    }
+    this.localStorageService.setItem('treasure-trove-settings', JSON.stringify(settings));
+  }
+
+  initSettings() {
+    const settingsAsString = this.localStorageService.getItem('treasure-trove-settings');
+    if (settingsAsString) {
+      const settings = JSON.parse(settingsAsString)
+      console.log('settings', settings)
+      this.diceLog = settings.diceLog;
+      this.adventureTireSelected = this.adventureTiers.find(x => x.text === settings.adventureTireSelected.text)
+      this.troveProfileSelected = this.troveProfiles.find(x => x.text === settings.troveProfileSelected.text)
+      this.dicesForCoin = settings.dicesForCoin;
+      this.dicesForItems = settings.dicesForItems
+    }
   }
 
   calculateItems(numberOfItems: number) {

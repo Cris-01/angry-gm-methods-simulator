@@ -1,5 +1,5 @@
 
-<h4>Treasure Trove Simulator</h4>
+<div class="header">Treasure Trove Simulator</div>
 
 <p>
   This program use the logic of the "Rolling Fistfuls of Dice" method by The Angry GM, explained in the article 
@@ -14,15 +14,13 @@
   </a>).
 </p>
 
-<section class="example-section">
-  <mat-checkbox class="example-margin" [(ngModel)]="diceLog">Enable Dice Log</mat-checkbox>
-</section>
+
 
 <div class="row-section">
   <div class="col-section">
     <label><b>Choose your Adventure Tier</b></label>
-    <mat-radio-group class="radio-group" (ngModelChange)="updateDices()"
-      [(ngModel)]="adventureTireSelected">
+    <mat-radio-group #radioGroupTier class="radio-group" (ngModelChange)="updateDices()"
+      [(ngModel)]="adventureTireSelected" [value]="adventureTireSelected">
       @for (tier of adventureTiers; track tier) {
         <mat-radio-button class="radio-button" [value]="tier">{{tier.text}}</mat-radio-button>
       }
@@ -36,7 +34,7 @@
   <div class="col-section">
     <label><b>Choose your Trove profile</b></label>
     <mat-radio-group class="radio-group"
-      [(ngModel)]="troveProfileSelected">
+      [(ngModel)]="troveProfileSelected" [value]="troveProfileSelected" (ngModelChange)="saveSettings()">
       @for (profile of troveProfiles; track profile) {
         <mat-radio-button class="radio-button" [value]="profile">{{profile.text}} - {{profile.array | json}}</mat-radio-button>
       }
@@ -70,12 +68,16 @@
 <div class="row-section">
   <label class="label">Generate Treasure Trove</label>
   <button mat-fab color="primary" class="btn" (click)="startSimulation()">
-    <mat-icon>check</mat-icon>
+    <mat-icon>refresh</mat-icon>
   </button>
 </div>
 
+<section class="margin-bottom">
+  <mat-checkbox [(ngModel)]="diceLog" (ngModelChange)="saveSettings()">Enable Dice Log</mat-checkbox>
+</section>
 
-<div class="col-section">
+
+<div class="col-section result">
 
   <mat-card class="card">
     <mat-card-header>
@@ -84,17 +86,17 @@
 
     <mat-card-content>
 
-      <div>
+      <div class="col-section">
         <div>Coin Value: <b> {{coinValue}} GP </b> 
-          <span *ngIf="diceForCoinArray.length && diceLog">dices rolled {{diceForCoinArray | json}} 
-            (multiplier {{adventureTireSelected.multiplier}}) </span>
+          <span *ngIf="diceForCoinArray.length && diceLog">(dices rolled {{diceForCoinArray | json}},
+            multiplier {{adventureTireSelected.multiplier}}) </span>
         </div>
       </div>
     
-      <div>
-        <div>Number of Items: <b>{{items.length}} </b> 
+      <div class="margin-top">
+        <div>Number of Items: <b>{{items.length}} </b>
           <span *ngIf="dicesResultForNumberOfItems.length && diceLog">dices rolled {{dicesResultForNumberOfItems | json}} </span>
-       </div>
+       </div> (sorted by class)
       </div>
 
       <div class='list-container'>
