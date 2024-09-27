@@ -1,6 +1,7 @@
-import { Component, ElementRef, OnInit, viewChild } from '@angular/core';
-import { from, map, Observable, of, reduce } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from '../../services/local-storage.service';
+import { DiceHelper } from '../../shared/dice-functions';
+import { Item } from '../../models/Item';
 
 @Component({
   selector: 'app-treasure-trove',
@@ -90,31 +91,31 @@ export class TreasureTroveComponent implements OnInit {
   tradeGoodValuation = [
     {
       rarity: 'Common',
-      value: () => this.rollADice(6),
+      value: () => DiceHelper.rollADice(6),
       tightAppraisal: '2 gp - 5 gp',
       broadAppraisal: '1 gp - 6 gp'
     },
     {
       rarity: 'Uncommon',
-      value: () => this.rollADice(6) * 5,
+      value: () => DiceHelper.rollADice(6) * 5,
       tightAppraisal: '10 gp - 25 gp',
       broadAppraisal: '5 gp - 30 gp'
     },
     {
       rarity: 'Rare',
-      value: () => this.rollADice(6) * 10,
+      value: () => DiceHelper.rollADice(6) * 10,
       tightAppraisal: '20 gp - 50 gp',
       broadAppraisal: '10 gp - 60 gp'
     },
     {
       rarity: 'Very Rare',
-      value: () => this.rollADice(6) * 50,
+      value: () => DiceHelper.rollADice(6) * 50,
       tightAppraisal: '100 gp - 250 gp',
       broadAppraisal: '50 gp - 300 gp'
     },
     {
       rarity: 'Legendary',
-      value: () => this.rollADice(6) * 100,
+      value: () => DiceHelper.rollADice(6) * 100,
       tightAppraisal: '200 gp - 500 gp',
       broadAppraisal: '100 gp - 600 gp'
     },
@@ -123,31 +124,31 @@ export class TreasureTroveComponent implements OnInit {
   gemstoneValuation = [
     {
       rarity: 'Common',
-      value: () => this.getTotalFromArrayOfDices([this.rollADice(6), this.rollADice(6)]) * 5,
+      value: () => DiceHelper.getTotalFromArrayOfDices([DiceHelper.rollADice(6), DiceHelper.rollADice(6)]) * 5,
       tightAppraisal: '25 gp - 45 gp',
       broadAppraisal: '10 gp - 60 gp'
     },
     {
       rarity: 'Uncommon',
-      value: () => this.getTotalFromArrayOfDices([this.rollADice(6), this.rollADice(6)]) * 10,
+      value: () => DiceHelper.getTotalFromArrayOfDices([DiceHelper.rollADice(6), DiceHelper.rollADice(6)]) * 10,
       tightAppraisal: '50 gp - 90 gp',
       broadAppraisal: '20 gp - 120 gp'
     },
     {
       rarity: 'Rare',
-      value: () => this.getTotalFromArrayOfDices([this.rollADice(6), this.rollADice(6)]) * 50,
+      value: () => DiceHelper.getTotalFromArrayOfDices([DiceHelper.rollADice(6), DiceHelper.rollADice(6)]) * 50,
       tightAppraisal: '250 gp - 450 gp',
       broadAppraisal: '100 gp - 600 gp'
     },
     {
       rarity: 'Very Rare',
-      value: () => this.getTotalFromArrayOfDices([this.rollADice(6), this.rollADice(6)]) * 100,
+      value: () => DiceHelper.getTotalFromArrayOfDices([DiceHelper.rollADice(6), DiceHelper.rollADice(6)]) * 100,
       tightAppraisal: '500 gp - 900 gp',
       broadAppraisal: '200 gp - 1,200 gp'
     },
     {
       rarity: 'Legendary',
-      value: () => this.getTotalFromArrayOfDices([this.rollADice(6), this.rollADice(6)]) * 500,
+      value: () => DiceHelper.getTotalFromArrayOfDices([DiceHelper.rollADice(6), DiceHelper.rollADice(6)]) * 500,
       tightAppraisal: '2,500 gp - 4,500 gp',
       broadAppraisal: '1,000 gp - 6,000 gp'
     },
@@ -156,31 +157,31 @@ export class TreasureTroveComponent implements OnInit {
   artObjectValuation = [
     {
       rarity: 'Common',
-      value: () => this.getTotalFromArrayOfDices([this.rollADice(6), this.rollADice(6), this.rollADice(6)]) * 10,
+      value: () => DiceHelper.getTotalFromArrayOfDices([DiceHelper.rollADice(6), DiceHelper.rollADice(6), DiceHelper.rollADice(6)]) * 10,
       tightAppraisal: '80 gp - 130 gp',
       broadAppraisal: '30 gp - 180 gp'
     },
     {
       rarity: 'Uncommon',
-      value: () => this.getTotalFromArrayOfDices([this.rollADice(6), this.rollADice(6), this.rollADice(6)]) * 50,
+      value: () => DiceHelper.getTotalFromArrayOfDices([DiceHelper.rollADice(6), DiceHelper.rollADice(6), DiceHelper.rollADice(6)]) * 50,
       tightAppraisal: '400 gp - 650 gp',
       broadAppraisal: '150 gp - 900 gp'
     },
     {
       rarity: 'Rare',
-      value: () => this.getTotalFromArrayOfDices([this.rollADice(6), this.rollADice(6), this.rollADice(6)]) * 100,
+      value: () => DiceHelper.getTotalFromArrayOfDices([DiceHelper.rollADice(6), DiceHelper.rollADice(6), DiceHelper.rollADice(6)]) * 100,
       tightAppraisal: '800 gp - 1,300 gp',
       broadAppraisal: '300 gp - 1,800 gp'
     },
     {
       rarity: 'Very Rare',
-      value: () => this.getTotalFromArrayOfDices([this.rollADice(6), this.rollADice(6), this.rollADice(6)]) * 500,
+      value: () => DiceHelper.getTotalFromArrayOfDices([DiceHelper.rollADice(6), DiceHelper.rollADice(6), DiceHelper.rollADice(6)]) * 500,
       tightAppraisal: '4,000 gp - 6,500 gp',
       broadAppraisal: '1,500 gp - 9,000 gp'
     },
     {
       rarity: 'Legendary',
-      value: () => this.getTotalFromArrayOfDices([this.rollADice(6), this.rollADice(6), this.rollADice(6)]) * 1000,
+      value: () => DiceHelper.getTotalFromArrayOfDices([DiceHelper.rollADice(6), DiceHelper.rollADice(6), DiceHelper.rollADice(6)]) * 1000,
       tightAppraisal: '8,000 gp - 13,000 gp',
       broadAppraisal: '3,000 gp - 18,000 gp'
     },
@@ -207,31 +208,17 @@ export class TreasureTroveComponent implements OnInit {
   getResultOfNumberOfDices(numberOfDices: number, numberOfFaces: number) {
     const results = [];
     for (let index = 0; index < numberOfDices; index++) {
-      results.push(this.rollADice(numberOfFaces))
+      results.push(DiceHelper.rollADice(numberOfFaces))
     }
     return results;
-  }
-
-  rollADice(numberOfFace:number) {
-    const max = numberOfFace;
-    const min = 1
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
-
-  getTotalFromArrayOfDices(array: number[]){
-    let tot = 0;
-    array.forEach( (x:number) => {
-      tot += x;
-    })
-    return tot
   }
 
   startSimulation() {
 
     this.diceForCoinArray = this.getResultOfNumberOfDices(this.dicesForCoin, 6);
-    this.coinValue = this.getTotalFromArrayOfDices(this.diceForCoinArray) * this.adventureTireSelected.multiplier;
+    this.coinValue = DiceHelper.getTotalFromArrayOfDices(this.diceForCoinArray) * this.adventureTireSelected.multiplier;
     this.dicesResultForNumberOfItems = this.getResultOfNumberOfDices(this.dicesForItems, 6);
-    this.numberOfItems = this.getTotalFromArrayOfDices(this.dicesResultForNumberOfItems)
+    this.numberOfItems = DiceHelper.getTotalFromArrayOfDices(this.dicesResultForNumberOfItems)
     this.items = this.calculateItems(this.numberOfItems);
     this.saveSettings();
   }
@@ -264,15 +251,15 @@ export class TreasureTroveComponent implements OnInit {
     const items = [];
     for (let index = 0; index < numberOfItems; index++) {
       let quality = 'Standard';
-      let qualityDice = this.rollADice(6);
+      let qualityDice = DiceHelper.rollADice(6);
       let qualityDice2;
       if (qualityDice === 1) { // has not normal quality
-        qualityDice2 = this.rollADice(6);
+        qualityDice2 = DiceHelper.rollADice(6);
         quality = qualityDice2 > 3 ? 'Superior' : 'Inferior'
       }
-      const objClassDice = this.rollADice(6)
+      const objClassDice = DiceHelper.rollADice(6)
       let objClass = this.troveProfileSelected.array[objClassDice-1]
-      const rarityDice = this.rollADice(6)
+      const rarityDice = DiceHelper.rollADice(6)
       let rarity = this.adventureTireSelected.rarity[rarityDice-1]
 
       let valuation = this.getValuationOfItem(objClass, rarity, quality);
@@ -339,38 +326,4 @@ export class TreasureTroveComponent implements OnInit {
   }
 
 
-}
-
-
-
-export class Item {
-  rarity: string;
-  rarityDice: number;
-  objClass: string;
-  objClassDice: number;
-  quality: string;
-  qualityDice: number;
-  qualityDice2: number;
-  value: number;
-  valueWithQuality: number;
-  valueDices: number[];
-  valueMultiplier: number;
-  tightAppraisal: string;
-  broadAppraisal: string;
-
-  constructor(obj: any) {
-    this.rarity = obj.rarity;
-    this.objClass = obj.objClass;
-    this.quality = obj.quality;
-    this.rarityDice = obj.rarityDice;
-    this.objClassDice = obj.objClassDice;
-    this.qualityDice = obj.qualityDice;
-    this.qualityDice2 = obj.qualityDice2;
-    this.value = obj.value;
-    this.valueWithQuality = obj.valueWithQuality;
-    this.valueDices = obj.valueDices;
-    this.valueMultiplier = obj.valueMultiplier;
-    this.tightAppraisal = obj.tightAppraisal;
-    this.broadAppraisal = obj.broadAppraisal;
-  }
 }

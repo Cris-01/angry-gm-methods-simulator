@@ -9,12 +9,13 @@ import { TreasureTroveComponent } from './components/treasure-trove/treasure-tro
 import { RandomWeatherComponent } from './components/random-weather/random-weather.component';
 import { AppMaterialModule } from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Utils } from './shared/utils';
 
 @NgModule({
   declarations: [
     AppComponent,
     TreasureTroveComponent,
-    RandomWeatherComponent
+    RandomWeatherComponent,
   ],
   imports: [
     BrowserModule,
@@ -23,9 +24,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     AppMaterialModule,
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [Utils],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
