@@ -44,3 +44,18 @@ h4 {
   .card {
     margin-bottom: 2em;
   }
+
+  .list-container {
+    margin-top: 1em;
+    .list-row {
+      padding-left: 10px;
+      padding-right: 10px;
+      
+      .subtext {
+        margin-left: 1em;
+        size: 8px;
+        font-weight: lighter;
+      }
+    }
+  }
+

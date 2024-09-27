@@ -86,6 +86,107 @@ export class TreasureTroveComponent implements OnInit {
   dicesResultForNumberOfItems: number[] = [];
   items: Item[] = [];
 
+  tradeGoodValuation = [
+    {
+      rarity: 'Common',
+      value: () => this.rollADice(6),
+      tightAppraisal: '2 gp - 5 gp',
+      broadAppraisal: '1 gp - 6 gp'
+    },
+    {
+      rarity: 'Uncommon',
+      value: () => this.rollADice(6) * 5,
+      tightAppraisal: '10 gp - 25 gp',
+      broadAppraisal: '5 gp - 30 gp'
+    },
+    {
+      rarity: 'Rare',
+      value: () => this.rollADice(6) * 10,
+      tightAppraisal: '20 gp - 50 gp',
+      broadAppraisal: '10 gp - 60 gp'
+    },
+    {
+      rarity: 'Very Rare',
+      value: () => this.rollADice(6) * 50,
+      tightAppraisal: '100 gp - 250 gp',
+      broadAppraisal: '50 gp - 300 gp'
+    },
+    {
+      rarity: 'Legendary',
+      value: () => this.rollADice(6) * 100,
+      tightAppraisal: '200 gp - 500 gp',
+      broadAppraisal: '100 gp - 600 gp'
+    },
+  ]
+
+  gemstoneValuation = [
+    {
+      rarity: 'Common',
+      value: () => this.getTotalFromArrayOfDices([this.rollADice(6), this.rollADice(6)]) * 5,
+      tightAppraisal: '25 gp - 45 gp',
+      broadAppraisal: '10 gp - 60 gp'
+    },
+    {
+      rarity: 'Uncommon',
+      value: () => this.getTotalFromArrayOfDices([this.rollADice(6), this.rollADice(6)]) * 10,
+      tightAppraisal: '50 gp - 90 gp',
+      broadAppraisal: '20 gp - 120 gp'
+    },
+    {
+      rarity: 'Rare',
+      value: () => this.getTotalFromArrayOfDices([this.rollADice(6), this.rollADice(6)]) * 50,
+      tightAppraisal: '250 gp - 450 gp',
+      broadAppraisal: '100 gp - 600 gp'
+    },
+    {
+      rarity: 'Very Rare',
+      value: () => this.getTotalFromArrayOfDices([this.rollADice(6), this.rollADice(6)]) * 100,
+      tightAppraisal: '500 gp - 900 gp',
+      broadAppraisal: '200 gp - 1,200 gp'
+    },
+    {
+      rarity: 'Legendary',
+      value: () => this.getTotalFromArrayOfDices([this.rollADice(6), this.rollADice(6)]) * 500,
+      tightAppraisal: '2,500 gp - 4,500 gp',
+      broadAppraisal: '1,000 gp - 6,000 gp'
+    },
+  ]
+
+  artObjectValuation = [
+    {
+      rarity: 'Common',
+      value: () => this.getTotalFromArrayOfDices([this.rollADice(6), this.rollADice(6), this.rollADice(6)]) * 10,
+      tightAppraisal: '80 gp - 130 gp',
+      broadAppraisal: '30 gp - 180 gp'
+    },
+    {
+      rarity: 'Uncommon',
+      value: () => this.getTotalFromArrayOfDices([this.rollADice(6), this.rollADice(6), this.rollADice(6)]) * 50,
+      tightAppraisal: '400 gp - 650 gp',
+      broadAppraisal: '150 gp - 900 gp'
+    },
+    {
+      rarity: 'Rare',
+      value: () => this.getTotalFromArrayOfDices([this.rollADice(6), this.rollADice(6), this.rollADice(6)]) * 100,
+      tightAppraisal: '800 gp - 1,300 gp',
+      broadAppraisal: '300 gp - 1,800 gp'
+    },
+    {
+      rarity: 'Very Rare',
+      value: () => this.getTotalFromArrayOfDices([this.rollADice(6), this.rollADice(6), this.rollADice(6)]) * 500,
+      tightAppraisal: '4,000 gp - 6,500 gp',
+      broadAppraisal: '1,500 gp - 9,000 gp'
+    },
+    {
+      rarity: 'Legendary',
+      value: () => this.getTotalFromArrayOfDices([this.rollADice(6), this.rollADice(6), this.rollADice(6)]) * 1000,
+      tightAppraisal: '8,000 gp - 13,000 gp',
+      broadAppraisal: '3,000 gp - 18,000 gp'
+    },
+  ]
+
+  diceLog = true;
+
   constructor() {
 
   }
@@ -147,13 +248,68 @@ export class TreasureTroveComponent implements OnInit {
       let objClass = this.troveProfileSelected.array[objClassDice-1]
       const rarityDice = this.rollADice(6)
       let rarity = this.adventureTireSelected.rarity[rarityDice-1]
+
+      let valuation = this.getValuationOfItem(objClass, rarity, quality);
+
       items.push(new Item({
-        rarity, quality, objClass, rarityDice, qualityDice, qualityDice2, objClassDice
+        rarity, quality, objClass, rarityDice, 
+        qualityDice, qualityDice2, objClassDice,
+        value: valuation.value,
+        broadAppraisal: valuation.broadAppraisal,
+        tightAppraisal: valuation.tightAppraisal,
+        valueWithQuality: valuation.valueWithQuality,
       }))
     }
 
     items.sort((a: Item, b: Item) => (a.objClass < b.objClass ? -1 : 1));
     return items;
+  }
+
+  getValuationOfItem(cls:string, rarity: string, quality: string) {
+    if (cls.includes('Trade Good')) {
+      const obj = this.tradeGoodValuation.find( x => x.rarity === rarity)
+      if (obj) {
+        return this.assignValuationData(obj, quality);
+      }
+    }
+    if (cls === 'Gemstone') {
+      const obj = this.gemstoneValuation.find( x => x.rarity === rarity)
+      if (obj) {
+        return this.assignValuationData(obj, quality);
+      }
+    }
+    if (cls === 'Art Object') {
+      const obj = this.artObjectValuation.find( x => x.rarity === rarity)
+      if (obj) {
+        return this.assignValuationData(obj, quality);
+      }
+    }
+    return {
+      broadAppraisal: '',
+      tightAppraisal: '',
+      value: 1,
+      valueWithQuality: 1,
+    };
+  }
+
+  assignValuationData(obj: any, quality: string) {
+    let result = {
+      broadAppraisal: '',
+      tightAppraisal: '',
+      value: 1,
+      valueWithQuality: 1,
+    };
+    result.broadAppraisal = obj.broadAppraisal
+    result.tightAppraisal = obj.tightAppraisal
+    result.value = obj.value()
+    result.valueWithQuality = 0
+    if (quality.includes('Superior')) {
+      result.valueWithQuality = result.value * 2
+    }
+    if (quality.includes('Inferior')) {
+      result.valueWithQuality = result.value / 2
+    }
+    return result
   }
 
 
@@ -166,9 +322,15 @@ export class Item {
   rarityDice: number;
   objClass: string;
   objClassDice: number;
-  quality: boolean;
+  quality: string;
   qualityDice: number;
   qualityDice2: number;
+  value: number;
+  valueWithQuality: number;
+  valueDices: number[];
+  valueMultiplier: number;
+  tightAppraisal: string;
+  broadAppraisal: string;
 
   constructor(obj: any) {
     this.rarity = obj.rarity;
@@ -178,5 +340,11 @@ export class Item {
     this.objClassDice = obj.objClassDice;
     this.qualityDice = obj.qualityDice;
     this.qualityDice2 = obj.qualityDice2;
+    this.value = obj.value;
+    this.valueWithQuality = obj.valueWithQuality;
+    this.valueDices = obj.valueDices;
+    this.valueMultiplier = obj.valueMultiplier;
+    this.tightAppraisal = obj.tightAppraisal;
+    this.broadAppraisal = obj.broadAppraisal;
   }
 }

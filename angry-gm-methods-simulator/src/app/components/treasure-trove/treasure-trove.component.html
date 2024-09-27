@@ -1,9 +1,26 @@
 
 <h4>Treasure Trove Simulator</h4>
 
+<p>
+  This program use the logic of the "Rolling Fistfuls of Dice" method by The Angry GM, explained in the article 
+  <a [href]="'https://theangrygm.com/how-you-should-handle-treasure-2/'" target="_blank">
+    "Silver and Gold: How You Should Handle Treasure at the Table (Part 2)"
+  </a>.
+</p>
+<p>
+  Also, for the evalution of the treasure it is used the "Dicey Treasure Valuation" 
+  (see <a [href]="'https://theangrygm.com/how-you-should-handle-treasure-1/'" target="_blank">
+    "Silver and Gold: How You Should Handle Treasure at the Table (Part 1)"
+  </a>).
+</p>
+
+<section class="example-section">
+  <mat-checkbox class="example-margin" [(ngModel)]="diceLog">Enable Dice Log</mat-checkbox>
+</section>
+
 <div class="row-section">
   <div class="col-section">
-    <label>Choose your Adventure Tier</label>
+    <label><b>Choose your Adventure Tier</b></label>
     <mat-radio-group class="radio-group" (ngModelChange)="updateDices()"
       [(ngModel)]="adventureTireSelected">
       @for (tier of adventureTiers; track tier) {
@@ -17,7 +34,7 @@
 
 <div class="row-section">
   <div class="col-section">
-    <label>Choose your Trove profile</label>
+    <label><b>Choose your Trove profile</b></label>
     <mat-radio-group class="radio-group"
       [(ngModel)]="troveProfileSelected">
       @for (profile of troveProfiles; track profile) {
@@ -69,33 +86,48 @@
 
       <div>
         <div>Coin Value: <b> {{coinValue}} GP </b> 
-          <span *ngIf="diceForCoinArray.length">dices rolled {{diceForCoinArray | json}} (multiplier {{adventureTireSelected.multiplier}}) </span>
+          <span *ngIf="diceForCoinArray.length && diceLog">dices rolled {{diceForCoinArray | json}} 
+            (multiplier {{adventureTireSelected.multiplier}}) </span>
         </div>
       </div>
     
       <div>
         <div>Number of Items: <b>{{items.length}} </b> 
-          <span *ngIf="dicesResultForNumberOfItems.length">dices rolled {{dicesResultForNumberOfItems | json}} </span>
+          <span *ngIf="dicesResultForNumberOfItems.length && diceLog">dices rolled {{dicesResultForNumberOfItems | json}} </span>
        </div>
       </div>
 
-      <mat-list role="list">
+      <div class='list-container'>
         @for (item of items; track item) {
-          <mat-list-item>
-            <b>{{item.objClass}}</b> <span *ngIf="item.objClassDice"> (dice rolled: [{{item.objClassDice}}])</span>,
-            <b>{{item.rarity}} </b> <span *ngIf="item.rarityDice"> (dice rolled: [{{item.rarityDice}}])</span>,
+
+          <div class="list-row">
+            <div>
+              <b>{{item.objClass}}</b> <span *ngIf="item.objClassDice && diceLog"> (dice rolled: [{{item.objClassDice}}])</span>,
+            <b>{{item.rarity}} </b> <span *ngIf="item.rarityDice && diceLog"> (dice rolled: [{{item.rarityDice}}])</span>,
             <b>{{item.quality}} quality</b> 
-            <span> 
+            <span *ngIf="diceLog"> 
               (dice rolled: [{{item.qualityDice}}] 
               <span *ngIf="item.qualityDice2"> 
                 -> [{{item.qualityDice2}}]
               </span>
               )
             </span>
-            
-          </mat-list-item>
+            </div>
+
+            <div class="subtext">
+              <div>Valuation: <b>{{item.value}} GP
+                <span *ngIf="!item.quality.includes('Standard')">(considering quality {{item.valueWithQuality}} GP)</span></b>, 
+                tight appraisal <i>({{item.tightAppraisal}})</i>, 
+                broad appraisal <i>({{item.broadAppraisal}})</i>
+              
+              </div>
+            </div>
+          </div>
+
         }
-      </mat-list>
+      </div>
+
+        
     </mat-card-content>
   </mat-card>
 

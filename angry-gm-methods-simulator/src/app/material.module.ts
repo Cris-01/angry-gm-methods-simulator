@@ -8,6 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   exports: [
@@ -18,7 +19,8 @@ import { MatListModule } from '@angular/material/list';
     MatCardModule,
     MatRadioModule,
     MatInputModule,
-    MatListModule
+    MatListModule,
+    MatCheckboxModule
   ]
 })
 export class AppMaterialModule {}
