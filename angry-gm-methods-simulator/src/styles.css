@@ -1,3 +1,89 @@
 /* You can add global styles to this file, and also import other style files */
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
+.header {
+    margin-bottom: 1em;
+    font-size: larger;
+    font-weight: bolder;
+  }
+
+  .link {
+    color: blue;
+    cursor: pointer;
+  }
+  
+
+.result {
+    margin-top: 1em;
+  }
+  
+  mat-card-header {
+    margin-bottom: 2em;
+  }
+  
+  .row-section {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      margin-top: 1em;
+  
+      .label{
+        min-width: 17em;
+      }
+  
+      .col-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        margin-right: 1em;
+        margin-left: 1em;
+      }
+  
+      .radio-group {
+        display: flex;
+        flex-direction: column;
+        margin: 15px 0;
+        align-items: flex-start;
+        .radio-button {
+          margin: 1px;
+        }
+      }
+  
+      .form-field {
+        margin-left: 1em;
+      }
+  
+  
+  }
+  
+  .btn {
+    margin-bottom: 1em;
+  }
+  
+  .card {
+      margin-bottom: 2em;
+  }
+  
+  .list-container {
+      margin-top: 1em;
+      .list-row {
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-bottom: 1em;
+        
+        .subtext {
+          margin-left: 1em;
+          size: 8px;
+          font-weight: lighter;
+        }
+      }
+  }
+  
+  .margin-top {
+      margin-top: 1em;
+    }
+  
+  .margin-bottom {
+      margin-bottom: 1em;
+    }
+  

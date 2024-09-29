@@ -19,13 +19,12 @@
 <div class="row-section">
   <div class="col-section">
     <label><b>Choose your Adventure Tier</b></label>
-    <mat-radio-group #radioGroupTier class="radio-group" (ngModelChange)="updateDices()"
+    <mat-radio-group class="radio-group" (ngModelChange)="updateDices()"
       [(ngModel)]="adventureTireSelected" [value]="adventureTireSelected">
       @for (tier of adventureTiers; track tier) {
         <mat-radio-button class="radio-button" [value]="tier">{{tier.text}}</mat-radio-button>
       }
     </mat-radio-group>
-    
   </div>
 </div>
 
@@ -66,10 +65,7 @@
 
 
 <div class="row-section">
-  <label class="label">Generate Treasure Trove</label>
-  <button mat-fab color="primary" class="btn" (click)="startSimulation()">
-    <mat-icon>refresh</mat-icon>
-  </button>
+  <button class="btn" mat-flat-button color="primary" (click)="startSimulation()">Generate Treasure Trove</button>
 </div>
 
 <section class="margin-bottom">

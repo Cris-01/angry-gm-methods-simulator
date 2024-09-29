@@ -12,4 +12,13 @@ export class DiceHelper {
         })
         return tot
     }
+
+    public static generateRangeArray(size: number, start: number = 1) {
+        return [...Array(size).keys()].map(i => i + start)
+    }
+
+    public static generateRangeArrayFromStartToEnd(start: number, end: number) {
+        const size = end + 1 - start;
+        return this.generateRangeArray(size, start)
+    }
 }

@@ -214,7 +214,6 @@ export class TreasureTroveComponent implements OnInit {
   }
 
   startSimulation() {
-
     this.diceForCoinArray = this.getResultOfNumberOfDices(this.dicesForCoin, 6);
     this.coinValue = DiceHelper.getTotalFromArrayOfDices(this.diceForCoinArray) * this.adventureTireSelected.multiplier;
     this.dicesResultForNumberOfItems = this.getResultOfNumberOfDices(this.dicesForItems, 6);

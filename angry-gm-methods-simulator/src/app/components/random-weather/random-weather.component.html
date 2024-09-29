@@ -3,9 +3,76 @@
 <p>
   This program generate weather based on this PDF that was found on Internet and forward to me. 
   I don't know the original author, but whoever is he, thank to him 
-  <span class="link" (click)="openFileFromAssets('ClimateWeatherTables.pdf')">
+  <span class="link" (click)="openPdf()">
     ("ClimateWeatherTables.PDF")
   </span>.
 </p>
 
-<div>Work in progress</div>
+<div class="row-section">
+  <div class="col-section">
+    <label><b>Choose your Climate</b></label>
+    <mat-radio-group class="radio-group" (ngModelChange)="climateChanged()"
+      [(ngModel)]="climateSelected" [value]="climateSelected">
+      @for (climate of climates; track climate) {
+        <mat-radio-button class="radio-button" [value]="climate">{{climate.text}}</mat-radio-button>
+      }
+    </mat-radio-group>
+  </div>
+</div>
+
+<div class="row-section">
+  <button class="btn" mat-flat-button color="primary" (click)="startSimulation()">Generate Random Weather</button>
+</div>
+
+<section class="margin-bottom">
+  <mat-checkbox [(ngModel)]="diceLog" (ngModelChange)="saveSettings()">Enable Dice Log</mat-checkbox>
+</section>
+
+<div class="col-section result">
+
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title>Result</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <div class="col-section">
+        <div>Climate selected: <b> {{result.text}} </b> </div>
+      </div>
+    
+      <div class="margin-top">
+        <div>Temperature: <b>{{result.temperature}}<span *ngIf="result.rollTemperature">,</span> {{result.temperatureDescription}} </b>
+          <span *ngIf="diceLog && result.rollTemperature">
+            (dice rolled {{result.rollTemperature}}) </span>
+       </div>
+      </div>
+
+      <div class="margin-top">
+        <div>Precipitation: <b>{{result.precipitation}}</b>
+          <span *ngIf="diceLog && result.rollPrecipitation">
+            (dice rolled {{result.rollPrecipitation}}) </span>
+       </div>
+      </div>
+
+      <div class="margin-top">
+        <div>CloudCover: <b>{{result.cloudCover}}</b>
+          <span *ngIf="diceLog && result.rollCloudCover">
+            (dice rolled {{result.rollCloudCover}}) </span>
+       </div>
+      </div>
+
+      <div class="margin-top">
+        <div>Wind: <b>{{result.wind}}</b>
+          <span *ngIf="diceLog && result.rollWind">
+            (dice rolled {{result.rollWind}}) </span>
+       </div>
+      </div>
+
+        
+    </mat-card-content>
+  </mat-card>
+
+
+
+</div>
