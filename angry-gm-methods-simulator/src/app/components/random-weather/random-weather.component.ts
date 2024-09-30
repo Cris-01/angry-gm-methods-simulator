@@ -863,7 +863,7 @@ export class RandomWeatherComponent implements OnInit {
     cloudCover: '',
   }
 
-  pdfLink = 'https://drive.google.com/file/d/1s3prfqvKJoaPtcBibXTrTqB_VVHeSQHC/view?usp=sharing';
+  pdfLink = 'https://github.com/Cris-01/angry-gm-methods-simulator/blob/main/angry-gm-methods-simulator/src/assets/ClimateWeatherTables.pdf';
   
   constructor(private localStorageService: LocalStorageService) {}
 
