@@ -862,8 +862,8 @@ export class RandomWeatherComponent implements OnInit {
     rollCloudCover: 0,
     cloudCover: '',
   }
-  
-  private pathPdf = 'assets/ClimateWeatherTables.pdf';
+
+  pdfLink = 'https://drive.google.com/file/d/1s3prfqvKJoaPtcBibXTrTqB_VVHeSQHC/view?usp=sharing';
   
   constructor(private localStorageService: LocalStorageService) {}
 
@@ -917,12 +917,9 @@ export class RandomWeatherComponent implements OnInit {
     this.saveSettings();
   }
 
-  downloadPdf() {
-    const link = document.createElement('a');
-    link.download = "ClimateWeatherTables.PDF";
-    link.href = this.pathPdf
-    link.click()
-  } 
+  openExternalLink(url: string) {
+    window.open(url)
+  }
 
 }
 
