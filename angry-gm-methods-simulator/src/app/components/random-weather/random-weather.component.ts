@@ -850,7 +850,6 @@ export class RandomWeatherComponent implements OnInit {
   climateSelected = this.climates[0]
 
   diceLog = false;
-  private urlPDF = '../assets/ClimateWeatherTables.pdf';
   result =   {
     text: '',
     temperature: '',
@@ -864,14 +863,12 @@ export class RandomWeatherComponent implements OnInit {
     cloudCover: '',
   }
   
+  private pathPdf = '../assets/ClimateWeatherTables.pdf';
+  
   constructor(private localStorageService: LocalStorageService) {}
 
   ngOnInit() {
     this.initSettings();
-  }
-
-  openPdf() {
-    window.open(this.urlPDF, '_blank');
   }
 
   climateChanged() {
@@ -920,6 +917,12 @@ export class RandomWeatherComponent implements OnInit {
     this.saveSettings();
   }
 
+  downloadPdf() {
+    const link = document.createElement('a');
+    link.download = "ClimateWeatherTables.PDF";
+    link.href = this.pathPdf
+    link.click()
+  } 
 
 }
 
