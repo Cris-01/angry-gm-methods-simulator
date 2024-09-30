@@ -863,7 +863,7 @@ export class RandomWeatherComponent implements OnInit {
     cloudCover: '',
   }
   
-  private pathPdf = '../assets/ClimateWeatherTables.pdf';
+  private pathPdf = 'assets/ClimateWeatherTables.pdf';
   
   constructor(private localStorageService: LocalStorageService) {}
 
