@@ -10,12 +10,14 @@ import { RandomWeatherComponent } from './components/random-weather/random-weath
 import { AppMaterialModule } from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Utils } from './shared/utils';
+import { InjuriesTableComponent } from './components/injures-table/injuries-table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TreasureTroveComponent,
     RandomWeatherComponent,
+    InjuriesTableComponent,
   ],
   imports: [
     BrowserModule,

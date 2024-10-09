@@ -1,0 +1,81 @@
+<div class="header">Random Injury</div>
+
+<p>
+  This program generate a result for a injury using my random tables. The effects of the table are taken from Lost Archive
+   <a href="https://thelostarchives.fandom.com/wiki/Custom_Rules_D%26D_5e#Damage_Based_Lasting_Injuries" target="_blank">wiki</a>
+   which took inspiration from 
+   <a href="http://farlandworld.com/injuries.html" target="_blank">Farland World</a>
+</p>
+
+<div class="row-section">
+  <div class="col-section">
+    <label><b>Choose Damage Type</b></label>
+    <mat-radio-group class="radio-group" (ngModelChange)="damageTypeChanged()"
+      [(ngModel)]="damageTypeSelected" [value]="damageTypeSelected">
+      @for (damageType of damageTypes; track damageType) {
+        <mat-radio-button class="radio-button" [value]="damageType">{{damageType.text}}</mat-radio-button>
+      }
+    </mat-radio-group>
+  </div>
+
+  <div class="col-section">
+    <label><b>Choose a static number rolled by a player</b></label>
+    <mat-form-field>
+      <mat-label>Static number</mat-label>
+      <mat-select  (ngModelChange)="staticNumberChanged()" [(ngModel)]="staticNumberSelected" [value]="staticNumberSelected">
+        @for (staticNumber of numbers; track staticNumber) {
+          <mat-option [value]="staticNumber">{{staticNumber}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+
+      <label><b>Choose lower bound (to avoid severe injuries on low levels)</b></label>
+      <mat-form-field>
+        <input type="number" matInput placeholder="0" [(ngModel)]="lowerBound" min="0" max="20"
+        (click)="startSimulation(null)">
+      </mat-form-field>
+
+  </div>
+</div>
+
+
+<div class="row-section">
+  <button class="btn" mat-flat-button color="primary" (click)="startSimulation(null)">Generate Random Injury</button>
+</div>
+
+<section class="margin-bottom">
+  <mat-checkbox [(ngModel)]="diceLog" (ngModelChange)="saveSettings()">Enable Dice Log</mat-checkbox>
+</section>
+
+<div class="col-section result">
+
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title>Result</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <div class="col-section">
+        <div>Damage Type selected: <b> {{result.damageType}} </b> </div>
+      </div>
+    
+      <div class="margin-top">
+        <div>Name: <b>{{result.text}}</b>
+          <span *ngIf="diceLog && result.rollInjury">
+            (dice rolled {{result.rollInjury}} 
+            <span *ngIf="diceLog && result.rollInjury && (result.rollInjury < lowerBound)"> -> moved to [{{lowerBound}}] for lover bound </span>) </span>
+       </div>
+      </div>
+
+      <div class="margin-top">
+        <div>Description: <b>{{result.description}}</b></div>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+
+
+
+</div>
